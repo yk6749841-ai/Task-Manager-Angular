@@ -1,0 +1,109 @@
+<app-header></app-header>
+
+<div class="main-container">
+  
+  <div class="header-section">
+      <h1>My projects</h1>
+      <button class="add-btn" (click)="openModalProject(projectDialog)">
+        <span>+</span> New Project
+      </button>
+  </div>
+
+  <div class="filters-container">
+     
+     <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Search projects..." (input)="updateSearch($event)">
+        @if (searchTerm()) {
+           <button mat-icon-button matSuffix (click)="searchTerm.set('')">
+              <mat-icon>close</mat-icon>
+           </button>
+        }
+     </mat-form-field>
+
+     <mat-form-field appearance="outline" class="sort-filter">
+        <mat-label>Sort By</mat-label>
+        <mat-select [value]="sortBy()" (selectionChange)="sortBy.set($event.value)">
+           <mat-option value="newest">Newest First</mat-option>
+           <mat-option value="oldest">Oldest First</mat-option>
+           <mat-option value="az">Name (A-Z)</mat-option>
+        </mat-select>
+     </mat-form-field>
+
+  </div>
+
+  @if (isLoading()) {
+      <div class="loading-container">
+         <mat-spinner diameter="50"></mat-spinner>
+      </div>
+  } @else {
+      
+      <div class="projects-list">
+         @for (project of filteredProjects(); track project.id) {
+            
+            <div class="project-card" (click)="onProjectSelect(project.id!)">
+               
+               <div class="card-header">
+                   <span class="id-badge">#{{ project.id }}</span>
+
+                   <h2>{{ project.name }}</h2>
+
+                   <span class="status-badge" [class.active]="project.status === 'active'">
+                     {{ project.status || 'Active' }}
+                   </span>
+               </div>
+
+               <p class="description">{{ project.description || 'No description provided.' }}</p>
+
+               <div class="card-divider"></div>
+
+               <div class="card-footer">
+                  <div class="info-item">
+                     <mat-icon class="icon-small">calendar_today</mat-icon>
+                     <span>{{ project.created_at | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                  <div class="info-item">
+                     <mat-icon class="icon-small">group</mat-icon>
+                     <span>Team {{ project.teamId }}</span>
+                  </div>
+               </div>
+            </div>
+
+         } @empty {
+            <div class="empty-state">
+               <p>No projects found matching your search.</p>
+            </div>
+         }
+      </div>
+  }
+</div>
+
+<ng-template #projectDialog>
+  <h2 mat-dialog-title style="color: #209417; text-align: center;">Create New Project</h2>
+  
+  <mat-dialog-content>
+    <form [formGroup]="projectForm" class="dialog-form">
+      
+      <div class="form-group">
+        <label>Project Name</label>
+        <input type="text" formControlName="name" placeholder="e.g. Angular Project">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" placeholder="Project description..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Team ID</label>
+        <input type="number" formControlName="teamId" placeholder="Enter Team ID">
+      </div>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" style="padding-bottom: 20px; padding-right: 20px;">
+    <button class="cancel-btn" mat-dialog-close>Cancel</button>
+    <button class="save-btn" (click)="onSubmit()" [disabled]="projectForm.invalid">Save Project</button>
+  </mat-dialog-actions>
+</ng-template>

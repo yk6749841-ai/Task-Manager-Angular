@@ -1,0 +1,498 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap');
+
+:host {
+  --primary-green: #209417;
+  --dark-green: #177a0f;
+  --light-green: #52b788;
+  --mint-green: #95d5b2;
+  --pale-green: #d8f3dc;
+  --cream: #f8fdf9;
+  --bg-white: #ffffff;
+  --text-dark: #111827;
+  --text-grey: #6b7280;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fdf9 0%, #ffffff 50%, #f8fafc 100%);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==================== ANIMATED BACKGROUND ==================== */
+:host::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(149, 213, 178, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(82, 183, 136, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(32, 148, 23, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: breathe 10s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Floating Organic Blobs */
+:host::after {
+  content: '';
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(149, 213, 178, 0.2) 0%, transparent 70%);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  bottom: -200px;
+  left: -200px;
+  animation: morphFloat 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+}
+
+@keyframes morphFloat {
+  0%, 100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(50px, -100px) rotate(120deg);
+  }
+  66% {
+    border-radius: 30% 70% 50% 50% / 50% 60% 40% 60%;
+    transform: translate(-50px, 50px) rotate(240deg);
+  }
+}
+
+/* ==================== REGISTER CONTAINER ==================== */
+.register-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== REGISTER CARD ==================== */
+.register-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 3.5rem 3rem;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 24px;
+  border: 1px solid rgba(32, 148, 23, 0.1);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Decorative gradient accent */
+.register-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-green), var(--light-green), var(--mint-green));
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ==================== LOGO ==================== */
+.form-logo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin: 0 auto 20px;
+  animation: fadeInScale 0.8s ease-out 0.2s backwards;
+  filter: drop-shadow(0 4px 12px rgba(32, 148, 23, 0.15));
+  mix-blend-mode: multiply;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==================== HEADING ==================== */
+h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: -0.5px;
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-green), var(--light-green));
+  border-radius: 2px;
+  animation: expandWidth 0.8s ease-out 0.6s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+/* ==================== FORM FIELDS ==================== */
+.full-width {
+  width: 100%;
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.full-width:nth-of-type(1) {
+  animation-delay: 0.4s;
+}
+
+.full-width:nth-of-type(2) {
+  animation-delay: 0.5s;
+}
+
+.full-width:nth-of-type(3) {
+  animation-delay: 0.6s;
+}
+
+/* Material Field Styling */
+::ng-deep .register-card .mat-mdc-text-field-wrapper {
+  background-color: white;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .register-card .mat-mdc-form-field:hover .mat-mdc-text-field-wrapper {
+  box-shadow: 0 2px 12px rgba(32, 148, 23, 0.08);
+}
+
+::ng-deep .mat-icon {
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+/* Border styling */
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #e5e7eb !important;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus States */
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--primary-green) !important;
+  border-width: 2px;
+}
+
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label {
+  color: var(--primary-green) !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mat-icon {
+  color: var(--primary-green) !important;
+  transform: scale(1.1);
+}
+
+::ng-deep .mat-mdc-form-field-icon-prefix > .mat-icon {
+  margin-right: 12px;
+}
+
+/* ==================== SUBMIT BUTTON ==================== */
+.submit-btn {
+  width: 100%;
+  padding: 1.3rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, var(--primary-green), var(--light-green)) !important;
+  color: white !important;
+  box-shadow: 0 8px 20px rgba(32, 148, 23, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  position: relative;
+  overflow: hidden;
+  border: none !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.submit-btn:active::before {
+  width: 400px;
+  height: 400px;
+}
+
+.submit-btn:not(:disabled):hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 28px rgba(32, 148, 23, 0.35) !important;
+}
+
+.submit-btn:disabled {
+  background: linear-gradient(135deg, #d1d5db, #e5e7eb) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+/* ==================== ACTIONS AREA ==================== */
+.actions {
+  display: flex;
+  justify-content: center;
+  min-height: 60px;
+  align-items: center;
+  margin-top: 10px;
+  animation: fadeInUp 0.8s ease-out 0.7s backwards;
+}
+
+::ng-deep .actions .mat-mdc-progress-spinner circle {
+  stroke: var(--primary-green) !important;
+}
+
+/* ==================== LOGIN LINK ==================== */
+.login-link {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-grey);
+  margin-top: 1rem;
+  animation: fadeIn 1s ease-out 0.8s backwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.login-link a {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.login-link a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-green), var(--light-green));
+  transition: width 0.3s ease;
+}
+
+.login-link a:hover {
+  color: var(--dark-green);
+}
+
+.login-link a:hover::after {
+  width: 100%;
+}
+
+/* ==================== FLOATING DECORATION ==================== */
+.register-card::after {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(149, 213, 178, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatBlob 15s ease-in-out infinite;
+}
+
+@keyframes floatBlob {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-50px, 50px);
+  }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 640px) {
+  :host {
+    padding: 16px;
+  }
+
+  .register-card {
+    padding: 2.5rem 2rem;
+    max-width: 100%;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .form-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .submit-btn {
+    padding: 1.1rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    gap: 16px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-logo {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* ==================== EXTRA POLISH ==================== */
+/* Smooth input transitions */
+::ng-deep .mat-mdc-text-field-wrapper input {
+  transition: all 0.3s ease;
+}
+
+/* Error states */
+::ng-deep .mat-mdc-form-field-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* Password visibility button */
+::ng-deep .mat-mdc-icon-button {
+  transition: all 0.3s ease;
+}
+
+::ng-deep .mat-mdc-icon-button:hover {
+  background-color: rgba(32, 148, 23, 0.08) !important;
+}
+
+::ng-deep .mat-mdc-icon-button:hover .mat-icon {
+  color: var(--primary-green) !important;
+}
+
+/* Additional floating elements for depth */
+.register-container::before {
+  content: '';
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(82, 183, 136, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 20%;
+  right: 10%;
+  animation: pulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+}

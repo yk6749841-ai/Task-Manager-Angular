@@ -1,0 +1,33 @@
+
+  <mat-toolbar class="main-header">
+
+  <div class="header-left">
+    <img src="images/logo.png" alt="Taskio Logo" class="logo-image">
+  </div>
+
+  <nav class="header-center">
+    <button mat-button routerLink="/teams">
+      <mat-icon>group</mat-icon>
+      Team Management
+    </button>
+    
+    <button mat-button routerLink="/tasks">
+      <mat-icon>assignment</mat-icon>
+      All Tasks
+    </button>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <div class="header-right">
+    <span class="welcome-text">
+      Welcome, <span class="highlight">{{ authService.currentUserSig()?.name }}</span>
+    </span>
+
+    <button mat-stroked-button color="warn" (click)="authService.logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </div>
+
+</mat-toolbar>

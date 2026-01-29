@@ -1,0 +1,237 @@
+<app-header></app-header>
+
+<div class="main-container">
+  
+  <div class="header-section">
+    <div class="title-group">
+      </div>
+    <button class="add-btn" (click)="openTaskModal(taskDialog)">
+      <span>+</span> Create Task
+    </button>
+  </div>
+
+  <div class="filters-container">
+     <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Search tasks..." (input)="updateSearch($event)">
+        @if (searchTerm()) {
+           <button mat-icon-button matSuffix (click)="searchTerm.set('')">
+              <mat-icon>close</mat-icon>
+           </button>
+        }
+     </mat-form-field>
+
+     <mat-form-field appearance="outline" class="priority-filter">
+        <mat-label>Priority</mat-label>
+        <mat-select [value]="selectedPriority()" (selectionChange)="selectedPriority.set($event.value)">
+           <mat-option value="ALL">All Priorities</mat-option>
+           <mat-option value="high">High</mat-option>
+           <mat-option value="normal">Normal</mat-option>
+           <mat-option value="low">Low</mat-option>
+        </mat-select>
+     </mat-form-field>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  } @else {
+    
+    <div class="board" cdkDropListGroup>
+
+        <div class="board-column col-todo">
+          <div class="column-header">
+            <span class="dot dot-todo"></span>
+            <h2>To Do</h2>
+            <span class="count">{{ filteredTodoTasks().length }}</span>
+          </div>
+      
+          <div class="tasks-list" cdkDropList id="todo" 
+               [cdkDropListData]="todoTasks()" 
+               (cdkDropListDropped)="drop($event)">
+            
+            @for (task of filteredTodoTasks(); track task.id) {
+              <div class="task-card" cdkDrag [cdkDragData]="task">
+                <div *cdkDragPlaceholder class="cdk-drag-placeholder"></div>
+                
+                <div class="card-top">
+                  <select class="small-select priority-select" [class]="'p-' + ((task.priority || 'low') | lowercase)"
+                    (change)="updatePriority(task, $event)" (click)="$event.stopPropagation()">
+                    <option value="low" [selected]="((task.priority || 'low') | lowercase) === 'low'">Low</option>
+                    <option value="normal" [selected]="((task.priority || 'low') | lowercase) === 'normal'">Normal</option>
+                    <option value="high" [selected]="((task.priority || 'low') | lowercase) === 'high'">High</option>
+                  </select>
+                  <button class="delete-icon" (click)="prepareDelete(task.id, deleteDialog)">🗑️</button>
+                </div>
+
+                <h3 class="card-title">{{ task.title }}</h3>
+                <p class="card-desc">{{ task.description }}</p>
+                
+                <div class="card-footer">
+                  <div class="date">📅 {{ task.due_date | date:'dd/MM' }}</div>
+                  <button class="comments-btn" (click)="goToComments(task.id!)">💬 Comments</button>
+                  <select class="small-select status-select" [class]="'s-' + ((task.status || 'todo') | lowercase)"
+                    (change)="updateStatus(task, $event)" (click)="$event.stopPropagation()">
+                    <option value="todo" [selected]="task.status === 'todo'">Todo</option>
+                    <option value="in_progress" [selected]="task.status === 'in_progress'">Prog</option>
+                    <option value="done" [selected]="task.status === 'done'">Done</option>
+                  </select>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      
+        <div class="board-column col-progress">
+          <div class="column-header">
+            <span class="dot dot-progress"></span>
+            <h2>In Progress</h2>
+            <span class="count">{{ filteredInProgressTasks().length }}</span>
+          </div>
+      
+          <div class="tasks-list" cdkDropList id="in_progress" 
+               [cdkDropListData]="inProgressTasks()" 
+               (cdkDropListDropped)="drop($event)">
+            
+            @for (task of filteredInProgressTasks(); track task.id) {
+              <div class="task-card" cdkDrag [cdkDragData]="task">
+                <div *cdkDragPlaceholder class="cdk-drag-placeholder"></div>
+                <div class="card-top">
+                  <select class="small-select priority-select" [class]="'p-' + ((task.priority || 'low') | lowercase)"
+                    (change)="updatePriority(task, $event)" (click)="$event.stopPropagation()">
+                    <option value="low" [selected]="((task.priority || 'low') | lowercase) === 'low'">Low</option>
+                    <option value="normal" [selected]="((task.priority || 'low') | lowercase) === 'normal'">Normal</option>
+                    <option value="high" [selected]="((task.priority || 'low') | lowercase) === 'high'">High</option>
+                  </select>
+                  <button class="delete-icon" (click)="prepareDelete(task.id, deleteDialog)">🗑️</button>
+                </div>
+                <h3 class="card-title">{{ task.title }}</h3>
+                <p class="card-desc">{{ task.description }}</p>
+                <div class="card-footer">
+                  <div class="date">📅 {{ task.due_date | date:'dd/MM' }}</div>
+                  <button class="comments-btn" (click)="goToComments(task.id!)">💬 Comments</button>
+                  <select class="small-select status-select" [class]="'s-' + ((task.status || 'todo') | lowercase)"
+                    (change)="updateStatus(task, $event)" (click)="$event.stopPropagation()">
+                    <option value="todo" [selected]="task.status === 'todo'">Todo</option>
+                    <option value="in_progress" [selected]="task.status === 'in_progress'">Prog</option>
+                    <option value="done" [selected]="task.status === 'done'">Done</option>
+                  </select>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      
+        <div class="board-column col-done">
+          <div class="column-header">
+            <span class="dot dot-done"></span>
+            <h2>Done</h2>
+            <span class="count">{{ filteredDoneTasks().length }}</span>
+          </div>
+      
+          <div class="tasks-list" cdkDropList id="done" 
+               [cdkDropListData]="doneTasks()" 
+               (cdkDropListDropped)="drop($event)">
+            
+            @for (task of filteredDoneTasks(); track task.id) {
+              <div class="task-card" cdkDrag [cdkDragData]="task">
+                <div *cdkDragPlaceholder class="cdk-drag-placeholder"></div>
+                <div class="card-top">
+                  <select class="small-select priority-select" [class]="'p-' + ((task.priority || 'low') | lowercase)"
+                    (change)="updatePriority(task, $event)" (click)="$event.stopPropagation()">
+                    <option value="low" [selected]="((task.priority || 'low') | lowercase) === 'low'">Low</option>
+                    <option value="normal" [selected]="((task.priority || 'low') | lowercase) === 'normal'">Normal</option>
+                    <option value="high" [selected]="((task.priority || 'low') | lowercase) === 'high'">High</option>
+                  </select>
+                  <button class="delete-icon" (click)="prepareDelete(task.id, deleteDialog)">🗑️</button>
+                </div>
+                <h3 class="card-title">{{ task.title }}</h3>
+                <p class="card-desc">{{ task.description }}</p>
+                <div class="card-footer">
+                  <div class="date">📅 {{ task.due_date | date:'dd/MM' }}</div>
+                  <button class="comments-btn" (click)="goToComments(task.id!)">💬 Comments</button>
+                  <select class="small-select status-select" [class]="'s-' + ((task.status || 'todo') | lowercase)"
+                    (change)="updateStatus(task, $event)" (click)="$event.stopPropagation()">
+                    <option value="todo" [selected]="task.status === 'todo'">Todo</option>
+                    <option value="in_progress" [selected]="task.status === 'in_progress'">Prog</option>
+                    <option value="done" [selected]="task.status === 'done'">Done</option>
+                  </select>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+    </div>
+    }
+</div>
+
+<ng-template #taskDialog>
+  <h2 mat-dialog-title style="color: #209417;">Create New Task</h2>
+  <mat-dialog-content>
+    <form [formGroup]="projectForm" class="dialog-form">
+      
+      @if (!idFromUrl) {
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Select Project</mat-label>
+            <mat-select formControlName="projectId">
+                @for (proj of projectsList(); track proj.id) {
+                    <mat-option [value]="proj.id">{{ proj.name }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+      }
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Task Title</mat-label>
+        <input matInput formControlName="title" placeholder="e.g. Fix Login Bug">
+        <mat-error>Title is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+      <div style="display: flex; gap: 15px;">
+          <mat-form-field appearance="outline" style="flex: 1;">
+            <mat-label>Priority</mat-label>
+            <mat-select formControlName="priority">
+                <mat-option value="low">Low</mat-option>
+                <mat-option value="normal">Normal</mat-option>
+                <mat-option value="high">High</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="flex: 1;">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="todo">To Do</mat-option>
+                <mat-option value="in_progress">In Progress</mat-option>
+                <mat-option value="done">Done</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" 
+            [disabled]="projectForm.invalid || (!idFromUrl && projectForm.get('projectId')?.value == 0)">
+      Create Task
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #deleteDialog let-data>
+  <h2 mat-dialog-title style="color: #ef4444;">Delete Task?</h2>
+  <mat-dialog-content>
+    <p>Are you sure you want to delete this task? This cannot be undone.</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="warn" (click)="confirmDelete(data)">Yes, Delete</button>
+  </mat-dialog-actions>
+</ng-template>

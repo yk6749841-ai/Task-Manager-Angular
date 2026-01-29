@@ -1,0 +1,99 @@
+<app-header></app-header>
+
+<div class="main-container">
+
+  <div class="actions-bar">
+      <button class="primary-btn" (click)="openAddTeamModal(addTeamDialog)">
+        <span>+</span> Add Team
+      </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-container">
+       <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  } @else {
+    
+    <div class="teams-grid">
+      @for (team of teamsArray(); track team.id) {
+        <div class="team-card">
+          
+          <div class="card-header">
+            <h3>{{ team.name }}</h3>
+            <span class="id-badge">#{{ team.id }}</span>
+          </div>
+
+          <div class="card-details">
+            <div class="detail-row">
+              <mat-icon class="icon-small">calendar_today</mat-icon>
+              <span>Created: <b>{{ team.created_at | date:'dd/MM/yyyy' }}</b></span>
+            </div>
+            
+            <div class="detail-row">
+              <mat-icon class="icon-small">group</mat-icon>
+              <span>Members: <b>{{ team.members_count || 0 }}</b></span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+             <button class="add-member-btn" (click)="openMemberModal(team.id, addMemberDialog)">
+               👤+ Add Member
+             </button>
+          </div>
+
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <p>No teams found. Click "Add Team" to create one!</p>
+        </div>
+      }
+    </div>
+
+  }
+</div>
+
+<ng-template #addTeamDialog>
+  <h2 mat-dialog-title style="color: #209417;">Create New Team</h2>
+  <mat-dialog-content>
+     <form [formGroup]="teamForm" class="dialog-form">
+        <mat-form-field appearance="outline" class="full-width">
+           <mat-label>Team Name</mat-label>
+           <input matInput formControlName="name" placeholder="e.g. Design Team">
+           <mat-error>Team name is required</mat-error>
+        </mat-form-field>
+     </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+     <button mat-button mat-dialog-close>Cancel</button>
+     <button mat-flat-button color="primary" (click)="addTeam()" [disabled]="teamForm.invalid">
+        Create Team
+     </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #addMemberDialog>
+  <h2 mat-dialog-title style="color: #209417;">Add Member</h2>
+  <mat-dialog-content>
+     <form [formGroup]="addMemberForm" class="dialog-form">
+        <mat-form-field appearance="outline" class="full-width">
+           <mat-label>User ID</mat-label>
+           <input matInput type="number" formControlName="userId" placeholder="Enter User ID">
+           <mat-error>Valid User ID is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+           <mat-label>Role</mat-label>
+           <mat-select formControlName="role">
+              <mat-option value="member">Member</mat-option>
+              <mat-option value="admin">Admin</mat-option>
+           </mat-select>
+        </mat-form-field>
+     </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+     <button mat-button mat-dialog-close>Cancel</button>
+     <button mat-flat-button color="primary" (click)="onAddMember()" [disabled]="addMemberForm.invalid">
+        Add User
+     </button>
+  </mat-dialog-actions>
+</ng-template>

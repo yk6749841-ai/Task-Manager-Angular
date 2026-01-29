@@ -1,0 +1,55 @@
+
+<div class="login-container">
+  
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="login-card">
+    
+    <img src="images/logo.png" alt="App Logo" class="form-logo">
+    <h2>Welcome!!</h2>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="user@example.com">
+      <mat-icon matPrefix>email</mat-icon>
+      
+      @if (userForm.get('email')?.hasError('required')) {
+        <mat-error>Email is required</mat-error>
+      }
+      @if (userForm.get('email')?.hasError('email')) {
+        <mat-error>Invalid email address</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="password">
+      <mat-icon matPrefix>lock</mat-icon>
+      
+      <button mat-icon-button matSuffix (click)="togglePassword($event)" type="button">
+        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+
+      @if (userForm.get('password')?.hasError('required')) {
+        <mat-error>Password is required</mat-error>
+      }
+      @if (userForm.get('password')?.hasError('minlength')) {
+        <mat-error>Min 6 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="actions">
+      @if (isLoading()) {
+         <mat-spinner diameter="40"></mat-spinner>
+      } @else {
+         <button mat-flat-button color="primary" type="submit" class="submit-btn" [disabled]="userForm.invalid">
+            Login
+         </button>
+      }
+    </div>
+
+    <div class="register-link">
+      Don't have an account yet? 
+      <a routerLink="/register">Register now</a>
+    </div>
+
+  </form>
+</div>

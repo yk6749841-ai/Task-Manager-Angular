@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* טעינת ערכת נושא מוכנה של אנגולר - חובה! */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap');
+
+/* הגדרת פונט בסיסי לכל האפליקציה */
+html, body { 
+  height: 100%; 
+}
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+
+:root {
+  --primary-green: #2d6a4f;
+  --light-green: #52b788;
+  --mint-green: #95d5b2;
+  --pale-green: #d8f3dc;
+  --cream: #f8fdf9;
+  --white: #ffffff;
+  --dark-text: #1b4332;
+  --gray-text: #52796f;
+  --shadow-sm: 0 2px 8px rgba(45, 106, 79, 0.08);
+  --shadow-md: 0 4px 16px rgba(45, 106, 79, 0.12);
+  --shadow-lg: 0 12px 32px rgba(45, 106, 79, 0.16);
+}

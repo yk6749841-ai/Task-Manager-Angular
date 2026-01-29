@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<div class="main-container">
+  
+  <div class="header">
+    <div class="title-group">
+      <h2>Task Comments</h2>
+      <span class="task-id">Task #{{ idFromUrl }}</span>
+    </div>
+    <button class="add-btn" (click)="openAddCommentModal(addCommentDialog)">
+      <mat-icon style="font-size: 18px; width: 18px; height: 18px;">add</mat-icon> Add Comment
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-container">
+       <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  } @else {
+
+    <div class="comments-list">
+      @for (comment of commentsArray(); track comment.id) {
+        <div class="comment-card">
+          <div class="comment-avatar">💬</div>
+          <div class="comment-content">
+            <div class="meta">
+                <span class="author">{{ comment.author_name }}</span>
+                <span class="date">{{ comment.created_at | date:'dd/MM HH:mm' }}</span>
+            </div>
+            <p class="comment-body">{{ comment.body }}</p>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <p>No comments yet. Be the first to add one!</p>
+        </div>
+      }
+    </div>
+
+  }
+</div>
+
+<ng-template #addCommentDialog>
+  <h2 mat-dialog-title style="color: #209417;">Add New Comment</h2>
+  
+  <mat-dialog-content>
+    <form [formGroup]="commentForm" class="dialog-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comment</mat-label>
+        <textarea matInput formControlName="body" rows="4" placeholder="Type here..."></textarea>
+        <mat-error>Comment cannot be empty</mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="addComment()" [disabled]="commentForm.invalid">
+      Post Comment
+    </button>
+  </mat-dialog-actions>
+</ng-template>

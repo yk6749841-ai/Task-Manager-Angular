@@ -1,0 +1,232 @@
+<div class="landing-container">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo-section">
+        <img src="images/logo.png" alt="Taskio Logo" class="logo-img">
+        <span class="logo-text">taskio</span>
+      </div>
+      <button class="nav-btn" (click)="onclick()">Sign In</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Decorative Elements -->
+    <div class="hero-decoration">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">✨ Smart Task Management</div>
+      <h1 class="hero-title">
+        Organize Your Tasks,<br>
+        <span class="highlight">Accomplish More</span>
+      </h1>
+      <p class="hero-subtitle">
+        The simple, elegant way to manage your daily tasks and boost productivity. 
+        Stay focused, track progress, and achieve your goals with Taskio.
+      </p>
+      <button class="cta-primary" (click)="onclick()">
+        Get Started Free
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <p class="hero-note">No credit card required • Free forever</p>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <div class="task-item">
+          <div class="checkbox checked"></div>
+          <span>Design new landing page</span>
+        </div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="task-item">
+          <div class="checkbox checked"></div>
+          <span>Team meeting at 3 PM</span>
+        </div>
+      </div>
+      <div class="floating-card card-3">
+        <div class="task-item">
+          <div class="checkbox"></div>
+          <span>Review project proposal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-header">
+      <h2 class="section-title">Everything You Need to Stay Organized</h2>
+      <p class="section-subtitle">Powerful features designed to make task management effortless</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4V28M4 16H28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Quick Task Creation</h3>
+        <p class="feature-description">Add tasks in seconds with our intuitive interface. Focus on what matters, not on complicated forms.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M6 10L12 16L26 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Smart Progress Tracking</h3>
+        <p class="feature-description">Visualize your productivity with beautiful progress indicators and completion statistics.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="10" r="4" stroke="currentColor" stroke-width="2"/>
+            <circle cx="8" cy="22" r="4" stroke="currentColor" stroke-width="2"/>
+            <circle cx="24" cy="22" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M14 13L10 19M18 13L22 19" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Team Collaboration</h3>
+        <p class="feature-description">Share tasks and projects with your team. Work together seamlessly towards common goals.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 12H28M10 6V4M22 6V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Due Date Reminders</h3>
+        <p class="feature-description">Never miss a deadline. Get smart notifications for upcoming tasks and deadlines.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M4 12L16 4L28 12V26C28 27.1046 27.1046 28 26 28H6C4.89543 28 4 27.1046 4 26V12Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 28V16H20V28" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Project Organization</h3>
+        <p class="feature-description">Group related tasks into projects. Keep your work organized and easy to navigate.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 8V16L22 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Time Management</h3>
+        <p class="feature-description">Estimate task duration and track time spent. Improve your planning and productivity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <h2 class="section-title">Get Started in Three Simple Steps</h2>
+    </div>
+
+    <div class="steps-container">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3 class="step-title">Create Your Account</h3>
+          <p class="step-description">Sign up in seconds and start organizing your tasks immediately.</p>
+        </div>
+      </div>
+
+      <div class="step-connector"></div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3 class="step-title">Add Your Tasks</h3>
+          <p class="step-description">Quickly add tasks, set priorities, and organize them into projects.</p>
+        </div>
+      </div>
+
+      <div class="step-connector"></div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3 class="step-title">Stay Productive</h3>
+          <p class="step-description">Check off completed tasks and watch your productivity soar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Get More Done?</h2>
+      <p class="cta-subtitle">Join thousands of productive people using Taskio every day</p>
+      <button class="cta-primary large" (click)="onclick()">
+        Get Started Free
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="images/logo.png" alt="Taskio Logo" class="footer-logo-img">
+          <span class="footer-logo-text">taskio</span>
+        </div>
+        <p class="footer-tagline">Simple task management for productive people</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4 class="footer-heading">Product</h4>
+        <ul class="footer-links">
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-heading">Company</h4>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-heading">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2026 Taskio. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
