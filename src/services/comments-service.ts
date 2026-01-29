@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TaskComment } from '../models/comments'; 
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { TaskComment } from '../models/comments';
 export class CommentsService {
 
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/comments';
+  private apiUrl = `${environment.apiUrl}/comments`;
 
   getCommentsByTask(taskId: number) {
     const url = `${this.apiUrl}?taskId=${taskId}`;
