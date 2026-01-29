@@ -2,6 +2,7 @@
 ---
 
 # Tasks-Board
+![תמונת פתיחת המערכת](./public/images/image2.png)
 
 ## 📋 Project Description
 
