@@ -2,6 +2,7 @@
 ---
 
 # Tasks-Board
+![תמונת פתיחת המערכת](./public/images/image2.png)
 
 ## 📋 Project Description
 
@@ -10,6 +11,7 @@ The application provides a comprehensive solution for managing tasks, projects, 
 
 The application is designed to enhance collaboration among team members, streamline workflows, and provide advanced tools for smart and efficient task management.  
 With support for comment management, advanced routing, and modular services, **Tasks-Board** is suitable for teams of all sizes.
+![תמונת המערכת מבפנים](./public/images/image.png)
 
 ---
 
