@@ -52,7 +52,7 @@ export class Login {
       this.auth.loginUser(this.userForm.getRawValue()).subscribe({
         next: (response) => {
           this.isLoading.set(false);
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/teams']);
           this.snackBar.open('Welcome back!', 'Close', { duration: 3000 });
         },
         error: (err) => {
