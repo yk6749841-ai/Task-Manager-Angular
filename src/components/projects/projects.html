@@ -10,7 +10,7 @@
   </div>
 
   <div class="filters-container">
-     
+      
      <mat-form-field appearance="outline" class="search-field">
         <mat-icon matPrefix>search</mat-icon>
         <input matInput placeholder="Search projects..." (input)="updateSearch($event)">
@@ -95,11 +95,21 @@
       </div>
 
       <div class="form-group">
-        <label>Team ID</label>
-        <input type="number" formControlName="teamId" placeholder="Enter Team ID">
+        <label>Assign Team</label>
+        
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Select a Team</mat-label>
+            <mat-select formControlName="teamId">
+                @for (team of teamsList(); track team.id) {
+                    <mat-option [value]="team.id">{{ team.name }}</mat-option>
+                }
+            </mat-select>
+            @if (projectForm.controls['teamId'].invalid && projectForm.controls['teamId'].touched) {
+                <mat-error>Team is required</mat-error>
+            }
+        </mat-form-field>
       </div>
-
-    </form>
+      </form>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end" style="padding-bottom: 20px; padding-right: 20px;">

@@ -15,6 +15,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TeamsService } from '../../services/teams';
 
 @Component({
   selector: 'app-projects',
@@ -38,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class Projects {
   private projectsService = inject(ProjectsService);
+  private teamsService = inject(TeamsService);
   public authService = inject(AuthService); 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -45,6 +47,7 @@ export class Projects {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
   projectsArray = signal<Project[]>([]);
+  teamsList = signal<any[]>([]);
   isLoading = signal(true);
 
   // --- חיפוש ומיון ---
@@ -81,6 +84,7 @@ export class Projects {
 
   constructor() {
     this.loadProjects();
+    this.loadTeams();
   }
 
   loadProjects() {
@@ -96,6 +100,14 @@ export class Projects {
           panelClass: ['error-snackbar']
         });
       }
+    });
+  }
+  loadTeams() {
+    this.teamsService.getTeams().subscribe({
+      next: (teams) => {
+        this.teamsList.set(teams); // מעדכן את הרשימה
+      },
+      error: (err) => console.error('Failed to load teams', err)
     });
   }
 
