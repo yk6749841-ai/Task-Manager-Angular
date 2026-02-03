@@ -58,7 +58,7 @@ export class Register {
             next: () => {
               this.isLoading.set(false);
               this.snackBar.open('Welcome! Account created successfully.', 'OK', { duration: 3000 });
-              this.router.navigate(['/projects']);
+              this.router.navigate(['/teams']);
             },
             error: (loginErr) => {
               this.isLoading.set(false);
