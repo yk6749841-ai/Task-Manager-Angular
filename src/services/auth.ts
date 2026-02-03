@@ -4,7 +4,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { LoginResponse, UserData, userLogin } from '../models/user';
 import { Router } from '@angular/router';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
